@@ -6,23 +6,39 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <style>
 #tetris {
-	display: inline-block;
-	width: 264px;
-	height: 440px;
-	border: 2px solid #000;
-	line-height: 0px;
-	background: #000;
+  display: inline-block;
+  width: 244px;
+  height: 404px;
+  border: 2px solid #000;
+  line-height: 0px;
+  background: #000;
+	position: relative;
 }
 #tetris b, #tetris i {
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	background: #000;
-	border: 1px solid #333;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: #000;
+  border: 1px solid #333;
 }
 #tetris i {
-	background: #fff;
-	border-color: #999;
+  background: #fff;
+  border-color: #999;
+}
+#start-btn {
+    display: block;
+    width: 50%;
+    margin: -10px 0 0 -60px;
+    padding: 20px;
+    background: #eee;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+#start-btn:hover {
+  background: #fff;
 }
 	/*Тег b у нас будет отвечать за свободную клетку, а тег i — за занятую. */
 </style>
@@ -30,15 +46,57 @@
 <body>
 
 
-<div id="tetris">
-	
+<div id="tetris" class="clearfix">
+	<span id="start-btn">START</span>
 </div>
 
 
 
 
 
+<script>
+	'use strict';
+	
+	var Tetris = {
+	  config: {
+		pitchID: "tetris",
+		freeBrick: "<b></b>",
+		filledBrick: "<i></i>"
+	  },
+	  pitch: {
+		width: 12,
+		height: 20,
+		bricks: []
+	  },
+	  startBtn: document.getElementById('start-btn')
+	};
+	for (var i = 0; i < Tetris.pitch.height; i++) {
+	  Tetris.pitch.bricks[i] = [];
+	  for (var j = 0; j < Tetris.pitch.width; j++) {
+		Tetris.pitch.bricks[i][j] = 0;
+	  }
+	}
+	
+	Tetris.startBtn.onclick = function() {
+	  var tetrisDom = document.getElementById(Tetris.config.pitchID);
+	  tetrisDom.innerHTML = '';
+	  for (var i = 0; i < Tetris.pitch.bricks.length; i++) {
+		for (var j = 0; j < Tetris.pitch.bricks[i].length; j++) {
+		  tetrisDom.innerHTML += Tetris.pitch.bricks[i][j] ? Tetris.config.filledBrick : Tetris.config.freeBrick;
+		}
+	  }
+	}
+	
 
+	
+	
+	
+	
+	
+	
+	
+	
+</script>
 <!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script-->
 </body>
